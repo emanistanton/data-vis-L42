@@ -24,7 +24,6 @@
     padding: 0.75rem;
     border: 1px solid var(--color-border);
     border-radius: 0.75rem;
-    background: var(--color-surface);
   }
 
   img {

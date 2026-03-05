@@ -10,16 +10,6 @@
   <title>Emani Stanton: Personal site and portfolio</title>
 </svelte:head>
 
-<nav>
-  <ul>
-    <li><a href={`${base}/`} class="current">Home</a></li>
-    <li><a href={`${base}/contact`}>Contact</a></li>
-    <li><a href={`${base}/projects`}>Projects</a></li>
-    <li><a href={`${base}/resume`}>Resume</a></li>
-    <li><a href="https://github.com/emanistanton" target="_blank">GitHub</a></li>
-  </ul>
-</nav>
-
 <main class="home">
   <section class="intro">
     <div class="intro-copy">
@@ -84,7 +74,6 @@
     padding: 1.1rem;
     border: 1px solid var(--color-border);
     border-radius: 0.85rem;
-    background: linear-gradient(135deg, oklch(99% 0.02 350), oklch(97% 0.04 355));
   }
 
   .intro-copy h1 {
@@ -109,7 +98,6 @@
     padding: 0.45rem 0.85rem;
     border: 1px solid var(--color-border);
     border-radius: 999px;
-    background: white;
   }
 
   .intro-image {
@@ -135,7 +123,6 @@
     padding: 1.1rem;
     border: 1px solid var(--color-border);
     border-radius: 0.85rem;
-    background: var(--color-surface);
   }
 
   .section-card h2 {
