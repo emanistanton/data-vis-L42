@@ -1,15 +1,18 @@
 <script>
   function handleSubmit(event) {
     event.preventDefault();
-    let form = event.target;
-    let data = new FormData(form);
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const action = form.getAttribute("action") ?? "";
 
-    let url = form.action + "?";
+    let url = action + "?";
+    const params = [];
     for (let [name, value] of data) {
-      url += (name + "=" + encodeURIComponent(value) + "&");
+      params.push(name + "=" + encodeURIComponent(String(value)));
     }
+    url += params.join("&");
 
-    location.href = url;
+    window.location.href = url;
   }
 </script>
 
@@ -29,5 +32,5 @@
     <textarea name="body" placeholder="Sup?" required></textarea>
   </label>
 
-  <button>Send</button>
+  <button type="submit">Send</button>
 </form>
