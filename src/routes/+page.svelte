@@ -1,9 +1,24 @@
 <script>
   import { base } from "$app/paths";
+  import { onMount } from "svelte";
   import Project from "$lib/Project.svelte";
   import projects from "$lib/projects.json";
   import ReadingItem from "$lib/ReadingItem.svelte";
   import reading from "$lib/reading.json";
+
+  let githubData = null;
+  let loading = true;
+  let error = null;
+
+  onMount(async () => {
+    try {
+      let response = await fetch("https://api.github.com/users/emanistanton");
+      githubData = await response.json();
+    } catch (err) {
+      error = err;
+    }
+    loading = false;
+  });
 </script>
 
 <svelte:head>
@@ -35,6 +50,26 @@
       />
       <figcaption>Current comfort show: Xena: Warrior Princess</figcaption>
     </figure>
+  </section>
+
+  <section class="section-card github-section">
+    <h2>GitHub Stats</h2>
+    {#if loading}
+      <p class="github-loading">Loading…</p>
+    {:else if error}
+      <p class="github-error">Something went wrong: {error.message}</p>
+    {:else}
+      <dl class="github-stats">
+        <dt>Followers</dt>
+        <dd>{githubData.followers}</dd>
+        <dt>Following</dt>
+        <dd>{githubData.following}</dd>
+        <dt>Public Repos</dt>
+        <dd>{githubData.public_repos}</dd>
+        <dt>Public Gists</dt>
+        <dd>{githubData.public_gists}</dd>
+      </dl>
+    {/if}
   </section>
 
   <section class="section-card">
@@ -149,6 +184,45 @@
     margin-top: 0.75rem;
   }
 
+  /* GitHub stats */
+  .github-section h2 {
+    margin-bottom: 0.85rem;
+  }
+
+  .github-loading,
+  .github-error {
+    margin: 0.5rem 0 0;
+    font-size: 0.95rem;
+    opacity: 0.7;
+  }
+
+  .github-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0 1rem;
+    margin: 0;
+  }
+
+  .github-stats dt {
+    grid-row: 1;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.65;
+    padding-bottom: 0.2rem;
+    border-bottom: 2px solid var(--color-accent, oklch(50% 30% 250));
+  }
+
+  .github-stats dd {
+    grid-row: 2;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-accent, oklch(50% 30% 250));
+    padding-top: 0.25rem;
+  }
+
   @media (max-width: 760px) {
     .intro {
       grid-template-columns: 1fr;
@@ -161,6 +235,10 @@
 
     .section-card {
       padding: 1rem;
+    }
+
+    .github-stats {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>

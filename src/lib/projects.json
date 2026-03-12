@@ -1,62 +1,86 @@
 [
   {
-    "title": "Lorem ipsum dolor sit.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Numquam nemo quae ab quas adipisci autem, placeat accusamus unde reprehenderit a quam modi optio, praesentium enim sunt magni quaerat, cum tempora."
+    "title": "Personal Data Visualization Portfolio",
+    "year": 2024,
+    "image": "https://picsum.photos/seed/dataviz/600/400",
+    "description": "A SvelteKit-based portfolio site with interactive data visualizations, built as part of MIT's 6.C85 Data Visualization course. Features GitHub API integration, scrollytelling narratives, and responsive design with light/dark mode support.",
+    "story": "This portfolio started as a class assignment and turned into something I genuinely wanted to finish. I learned that making data legible and beautiful at the same time is much harder than it looks — every design decision is a trade-off between clarity and elegance. Building it from scratch forced me to slow down and actually understand the web, not just copy patterns. By the end, it stopped feeling like homework."
   },
   {
-    "title": "Alias asperiores consectetur odio.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Deserunt sunt dolor aliquam reiciendis quod nihil iusto impedit quae recusandae, quos sint, neque id voluptatum iste modi corporis omnis ipsa necessitatibus vero. Porro assumenda neque quis veritatis sit voluptas."
+    "title": "NBA Shot Chart Dashboard",
+    "year": 2024,
+    "image": "https://picsum.photos/seed/basketball/600/400",
+    "description": "A basketball analytics dashboard visualizing player shot selection and efficiency across court zones using hexbin charts. Built with Python for data processing and Svelte for the interactive frontend, covering the 2023–24 NBA season.",
+    "story": "I've watched basketball my whole life, but this project made me realize how much I was missing. When I mapped Trae Young's shot chart against league average efficiency, the story jumped right out — not from the stat sheet, but from the geometry of the court. That moment where data stops being numbers and starts being intuition is why I got into this field."
   },
   {
-    "title": "Explicabo esse nihil voluptatibus.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Accusamus dolores illum maiores velit nobis. Ad corporis doloribus delectus nulla quisquam, minima amet ullam vero aperiam, dolores nostrum architecto ducimus accusantium. Placeat, ipsum adipisci. Non corrupti laborum illo placeat?"
+    "title": "Transit Ridership Recovery Analysis",
+    "year": 2023,
+    "image": "https://picsum.photos/seed/transit/600/400",
+    "description": "An analysis of Boston MBTA ridership patterns before and after COVID-19, using D3.js to build interactive line charts and choropleth maps revealing which routes recovered fastest post-pandemic and what demographic factors correlated with recovery.",
+    "story": "The MBTA is deeply imperfect, and I wanted to understand why some lines bounced back from COVID while others never did. What I found was less about the pandemic and more about who was riding in the first place — essential workers never stopped, and their lines recovered first. The data told a story about economic vulnerability hiding in plain sight on the commuter rail map."
   },
   {
-    "title": "Dolores sed error tempora?",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Ipsam alias dignissimos tempore inventore error, sequi voluptates cum ad odit repellat? Facilis est perspiciatis earum culpa quas fugit, in libero vitae ipsum, atque corrupti dolores numquam ipsam veritatis cupiditate?"
+    "title": "Quantitative Signal Research Infrastructure",
+    "year": 2023,
+    "image": "https://picsum.photos/seed/finance/600/400",
+    "description": "Developed internal tools for quantitative trading signal research during an internship, processing large tick-data datasets with Python and building dashboards for monitoring signal performance, factor exposure, and portfolio attribution.",
+    "story": "My first real encounter with financial data humbled me quickly — the datasets were enormous, the deadlines were real, and nobody would be impressed by a visualization that couldn't hold up under live market hours. I learned to write code that was not just correct but durable. That summer taught me that working at scale changes everything about how you think about a problem."
   },
   {
-    "title": "Adipisci corporis et minus.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Doloribus voluptate tempora dolore mollitia odit asperiores excepturi expedita id quasi, quisquam, ex nostrum cupiditate nobis adipisci qui! Ipsum maiores, nihil voluptate repellat eaque minus facere consectetur temporibus facilis ad."
+    "title": "MIT Housing Equity Study",
+    "year": 2022,
+    "image": "https://picsum.photos/seed/housing/600/400",
+    "description": "A geographic visualization studying housing cost disparities across Greater Boston neighborhoods, correlating transit access, school ratings, and demographics to highlight systemic inequities in the housing market using Census and MassGIS data.",
+    "story": "I came to this project trying to understand why Boston felt so segregated compared to Atlanta, where I grew up. What I found was a feedback loop: neighborhoods with poor transit had lower-rated schools, which kept property values suppressed, which limited city investment. Mapping it made the injustice legible in a way that a policy paper never could. I left more frustrated and more motivated."
   },
   {
-    "title": "Sint aliquam accusantium debitis.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Inventore iure aspernatur amet vero ut voluptatem eveniet reiciendis nulla. Minima ea laudantium libero accusantium nam, non excepturi ullam vel dolore cum expedita fuga pariatur similique impedit vero ipsa error."
+    "title": "Basketball Coaching Tactics Visualizer",
+    "year": 2022,
+    "image": "https://picsum.photos/seed/coaching/600/400",
+    "description": "An interactive tool for drawing and annotating basketball plays, built to help coaches communicate defensive schemes and offensive sets visually. Uses Canvas API for freehand drawing and stores play diagrams as JSON.",
+    "story": "I used to sketch plays in the margins of my notebooks during games. This project was an attempt to make that digital — something a coach could pull up on a tablet and talk through. Building it taught me about the Canvas API and about how hard it is to make a drawing tool feel natural. I ended up using it to analyze Xena fight choreography as a side project, which says a lot about how I spend my free time."
   },
   {
-    "title": "Nesciunt sapiente numquam laborum!",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Mollitia commodi porro sint quam, quasi dignissimos aliquam assumenda laudantium quae quisquam doloremque sapiente, laboriosam hic blanditiis obcaecati. Repellat voluptate voluptatibus nemo sapiente quidem. Maxime, voluptatibus omnis. Dignissimos, non quis."
+    "title": "Course Grade Analytics Tool",
+    "year": 2021,
+    "image": "https://picsum.photos/seed/grades/600/400",
+    "description": "A personal grade tracking tool built during sophomore year to analyze pset score distributions, predict final grades, and identify which problem types were causing the most point loss across multiple MIT courses simultaneously.",
+    "story": "Sophomore year nearly broke me. I made this tool out of desperation, trying to figure out where my time should go. The weirdest outcome: visualizing my own performance made me less anxious about it. Once the data was on screen, the problems stopped feeling abstract and started feeling solvable. I got better grades that semester, but more importantly, I stopped catastrophizing."
   },
   {
-    "title": "Nemo laborum similique praesentium.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Unde, hic. Consectetur ea harum delectus quibusdam officia! Mollitia, consequatur. Enim, est! Accusantium tempora cum laudantium fugiat necessitatibus facere voluptatibus nulla ullam, dolore in. Autem nulla odio animi soluta repellendus!"
+    "title": "Family Budget Dashboard",
+    "year": 2021,
+    "image": "https://picsum.photos/seed/budget/600/400",
+    "description": "A simple web app built for my family to track monthly expenses, visualize spending categories over time, and flag budget overruns. Built with vanilla JavaScript and Chart.js as a gift for my parents.",
+    "story": "Growing up in a big family means money conversations are always happening but never quite resolved. I built this as a gift — something my parents could actually use without explaining what a spreadsheet pivot table is. Watching someone outside tech use something you made and find it genuinely helpful is a different kind of satisfaction than impressing a professor. I keep coming back to that feeling."
   },
   {
-    "title": "Tempora autem corporis eaque.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Voluptatibus quis dolor at totam numquam laborum quaerat quas, atque nemo dignissimos eius esse ut, aperiam, eligendi deserunt! Reiciendis velit eligendi molestiae dolorum. Nisi quaerat numquam, saepe quos vel asperiores."
+    "title": "Atlanta Sports Analytics Blog",
+    "year": 2020,
+    "image": "https://picsum.photos/seed/atlanta/600/400",
+    "description": "A personal blog and data project analyzing Atlanta Hawks and Falcons performance metrics. Built custom visualizations in R with ggplot2 exploring coaching tactics, player development curves, and season trajectory forecasts across multiple seasons.",
+    "story": "Atlanta sports will break your heart reliably and often. I started this blog partly to cope — if I could explain why the Falcons blew a 28-3 lead with math, maybe it would hurt less. It didn't, but the process of learning R and building my first real visualizations was its own reward. I wrote for an audience of maybe five readers, and I think three of them were my siblings."
   },
   {
-    "title": "Numquam sed quaerat quos.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Nostrum velit dignissimos magnam, temporibus praesentium odit dolorem quam architecto animi minima numquam excepturi laborum earum eius asperiores repellendus. Incidunt, quam cupiditate voluptatem doloremque ipsam tempora iure natus consequatur hic?"
+    "title": "High School Data Science Club Projects",
+    "year": 2020,
+    "image": "https://picsum.photos/seed/classroom/600/400",
+    "description": "A collection of small data projects led and mentored during my final year of high school, including a school lunch preference survey visualizer, a local election turnout map, and a social media sentiment tracker.",
+    "story": "I was the only person in my high school who knew what pandas was, which made me feel like a genius and an alien simultaneously. Starting a data science club meant teaching myself how to teach, which was harder than learning the material. The lunch preference project sounds trivial, but watching ninth graders get excited about their first bar chart — that's a high that's hard to replicate."
   },
   {
-    "title": "Fuga nesciunt similique saepe?",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Voluptatem commodi accusamus, sint itaque non quasi impedit maxime quia cupiditate odio voluptatibus, nihil tempore quisquam. Atque quam quo dignissimos ducimus iste quos? Dolorum corrupti doloribus suscipit quaerat odio veritatis?"
+    "title": "Intro CS Final Project — Maze Generator",
+    "year": 2019,
+    "image": "https://picsum.photos/seed/maze/600/400",
+    "description": "A recursive maze generator and solver built as a final project for my first computer science course, implementing depth-first search for generation and breadth-first search for solution pathfinding, visualized with Python's turtle library.",
+    "story": "I did not expect to stay up until 3am watching a turtle draw mazes on my screen. This was the first time a program I wrote did something visually surprising — the maze would just emerge, cell by cell, from nothing. I remember thinking: I want to feel this again. I've spent the years since chasing that particular kind of delight."
   },
   {
-    "title": "Labore voluptate voluptatibus dolorum.",
-    "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-    "description": "Ratione corrupti placeat saepe voluptatibus a ab dignissimos assumenda minima aut amet ex soluta dolores, voluptate impedit nobis sapiente incidunt commodi eos obcaecati nam officia nesciunt quam quas laudantium. Beatae!"
+    "title": "First Personal Website",
+    "year": 2019,
+    "image": "https://picsum.photos/seed/website/600/400",
+    "description": "My first attempt at a personal website, built with plain HTML and CSS before I knew what a framework was. Featured a photo gallery, a bio, and a list of favorite TV shows dominated entirely by Xena: Warrior Princess.",
+    "story": "The first thing I ever put on the public internet was a webpage about Xena. I don't regret it. The CSS was a disaster — I used tables for layout and inline styles for everything — but it was mine. Looking back, I can see that the impulse to build a place to tell my own story is the same one that drives every project since. The tools got better. The impulse didn't change."
   }
 ]
