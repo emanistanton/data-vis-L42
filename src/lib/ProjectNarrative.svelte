@@ -1,5 +1,6 @@
 <script>
   import Scrolly from "svelte-scrolly";
+  import { base } from "$app/paths";
   import projects from "$lib/projects.json";
 
   let scrollyProgress = 0;
@@ -31,7 +32,7 @@
       <div class="project-detail">
         <div class="project-year">{sorted_projects[activeProjectIdx].year}</div>
         <img
-          src={sorted_projects[activeProjectIdx].image}
+          src={sorted_projects[activeProjectIdx].image?.startsWith("http") ? sorted_projects[activeProjectIdx].image : `${base}${sorted_projects[activeProjectIdx].image}`}
           alt={sorted_projects[activeProjectIdx].title}
           width="100%"
         />
