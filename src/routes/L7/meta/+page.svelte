@@ -8,9 +8,10 @@
   let locData = [];
   let langData = [];
   let commits = [];
+  let barData = [];
 
   const width = 1000;
-  const height = 600;
+  const height = 350;
   const margin = { top: 10, right: 10, bottom: 30, left: 20 };
   const usableArea = {
     top: margin.top,
@@ -28,6 +29,17 @@
   let clickedCommits = [];
 
   $: hoveredCommit = commits[hoveredIndex] ?? hoveredCommit ?? {};
+
+  $: {
+    let filteredLines = clickedCommits.length > 0
+      ? clickedCommits.flatMap(c => c.lines)
+      : locData;
+    let langCounts = d3.rollup(filteredLines, v => v.length, d => d.type);
+    barData = langData.map(({ label }) => ({
+      label,
+      value: langCounts.get(label) ?? 0,
+    }));
+  }
 
   $: rScale = d3.scaleSqrt()
     .domain(d3.extent(commits, d => d.totalLines))
@@ -129,6 +141,8 @@
   <g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
   <g class="dots">
     {#each commits as commit, index}
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
       <circle
         cx={xScale(commit.datetime)}
         cy={yScale(commit.hourFrac)}
@@ -137,8 +151,10 @@
         fill-opacity="0.6"
         role="img"
         aria-label="Commit by {commit.author} on {commit.datetime?.toLocaleDateString()}"
+        class:selected={clickedCommits.includes(commit)}
         on:mouseenter={evt => dotInteraction(index, evt)}
         on:mouseleave={evt => dotInteraction(index, evt)}
+        on:click={evt => dotInteraction(index, evt)}
       />
     {/each}
   </g>
@@ -167,7 +183,10 @@
 </dl>
 
 <h2>Lines of Code by Language</h2>
-<BarHorizontal data={langData} />
+<BarHorizontal
+  data={barData}
+  title={clickedCommits.length > 0 ? "Selected Commits Breakdown" : "Website Breakdown"}
+/>
 
 <style>
   .intro {
@@ -191,6 +210,10 @@
 
   circle:hover {
     fill: darkgreen;
+  }
+
+  circle.selected {
+    fill: var(--color-accent);
   }
 
   dl.info {
