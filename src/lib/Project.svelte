@@ -1,4 +1,5 @@
 <script>
+  import { base } from "$app/paths";
   export let data = {};
 </script>
 
@@ -6,8 +7,14 @@
   {#if data.year}
     <span class="year">{data.year}</span>
   {/if}
-  <h2>{data.title}</h2>
-  <img src={data.image} alt="" />
+  <h2>
+    {#if data.url}
+      <a href={data.url} target="_blank" rel="noopener">{data.title}</a>
+    {:else}
+      {data.title}
+    {/if}
+  </h2>
+  <img src={data.image?.startsWith("http") ? data.image : `${base}${data.image}`} alt="" />
   <p>{data.description}</p>
 </article>
 

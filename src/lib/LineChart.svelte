@@ -54,11 +54,9 @@
   })();
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
 <h3 class="chart-title">
   {hoveredDay ? `Lines Edited on ${hoveredDay}s` : "Lines Edited by Day"}
 </h3>
-<!-- svelte-ignore a11y-mouse-events-have-key-events -->
 <svg
   viewBox="0 0 {width} {height}"
   style="overflow: visible; width: 100%; height: auto;"
@@ -86,7 +84,6 @@
     Number of Lines Edited
   </text>
 
-  <!-- highlight bands -->
   {#each dayRegions as region}
     {#if region.weekday === hoveredDay}
       <rect
@@ -107,9 +104,7 @@
     stroke-width="2"
   />
 
-  <!-- invisible interaction regions -->
   {#each dayRegions as region}
-    <!-- svelte-ignore a11y-mouse-events-have-key-events -->
     <rect
       x={region.x}
       y={usableArea.top}
@@ -122,7 +117,6 @@
     />
   {/each}
 
-  <!-- dots -->
   {#each data as d}
     {@const isHighlighted = d.date.toLocaleString("en", { weekday: "long" }) === hoveredDay}
     <circle

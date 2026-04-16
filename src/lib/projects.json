@@ -1,5 +1,13 @@
 [
   {
+    "title": "Bikewatching",
+    "year": 2025,
+    "url": "https://emanistanton.github.io/data-vis-L9/",
+    "image": "/images/bikewatching.png",
+    "description": "An interactive map visualization of bike traffic in the Boston area, built with Mapbox and D3. Shows BlueBike station demand across 260,000+ rides from March 2024, with time-of-day filtering, traffic flow coloring, and isochrone overlays for reachability analysis.",
+    "story": "I've biked around Boston enough to have opinions about every bike lane — which ones feel safe, which ones end abruptly into a door zone, which ones are just a painted suggestion on a busy street. Building this let me see the whole network at once, and more importantly, see where people actually ride versus where the infrastructure is. Watching the station colors shift as I scrubbed through the time-of-day slider, you can see the city's rhythm: a morning surge outward from transit hubs, an evening pull back in. That pattern was always there. Now it's visible."
+  },
+  {
     "title": "Personal Data Visualization Portfolio",
     "year": 2024,
     "image": "https://picsum.photos/seed/dataviz/600/400",

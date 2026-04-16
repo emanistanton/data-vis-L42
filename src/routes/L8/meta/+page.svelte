@@ -185,20 +185,20 @@
   <g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
   <g class="dots">
     {#each commits as commit, index}
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
       <circle
         cx={xScale(commit.datetime)}
         cy={yScale(commit.hourFrac)}
         r={rScale(commit.totalLines)}
         fill="steelblue"
         fill-opacity="0.6"
-        role="img"
+        role="button"
+        tabindex="0"
         aria-label="Commit by {commit.author} on {commit.datetime?.toLocaleDateString()}"
         class:selected={selectedCommits.includes(commit)}
         on:mouseenter={evt => dotInteraction(index, evt)}
         on:mouseleave={evt => dotInteraction(index, evt)}
         on:click={evt => dotInteraction(index, evt)}
+        on:keydown={evt => evt.key === "Enter" && dotInteraction(index, evt)}
       />
     {/each}
   </g>
