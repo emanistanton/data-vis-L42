@@ -3,6 +3,7 @@
   import { base } from '$app/paths';
   import * as d3 from 'd3';
   import BarHorizontal from '$lib/BarHorizontal.svelte';
+  import { computePosition, autoPlacement, offset } from '@floating-ui/dom';
 
   let locData = [];
   let langData = [];
@@ -21,6 +22,16 @@
   usableArea.height = usableArea.bottom - usableArea.top;
 
   let xAxis, yAxis, yAxisGridlines;
+  let hoveredIndex = -1;
+  let commitTooltip;
+  let tooltipPosition = { x: 0, y: 0 };
+  let clickedCommits = [];
+
+  $: hoveredCommit = commits[hoveredIndex] ?? hoveredCommit ?? {};
+
+  $: rScale = d3.scaleSqrt()
+    .domain(d3.extent(commits, d => d.totalLines))
+    .range([5, 30]);
 
   $: minDate = d3.min(commits, d => d.datetime);
   $: maxDate = (() => {
@@ -53,6 +64,26 @@
     );
   }
 
+  async function dotInteraction(index, evt) {
+    let hoveredDot = evt.target;
+    if (evt.type === "mouseenter") {
+      hoveredIndex = index;
+      tooltipPosition = await computePosition(hoveredDot, commitTooltip, {
+        strategy: "fixed",
+        middleware: [offset(5), autoPlacement()],
+      });
+    } else if (evt.type === "mouseleave") {
+      hoveredIndex = -1;
+    } else if (evt.type === "click") {
+      let commit = commits[index];
+      if (!clickedCommits.includes(commit)) {
+        clickedCommits = [...clickedCommits, commit];
+      } else {
+        clickedCommits = clickedCommits.filter(c => c !== commit);
+      }
+    }
+  }
+
   onMount(async () => {
     locData = await d3.csv(`${base}/loc.csv`, row => ({
       ...row,
@@ -79,6 +110,8 @@
         lines,
       };
     });
+
+    commits = d3.sort(commits, d => -d.totalLines);
   });
 </script>
 
@@ -95,16 +128,43 @@
   <g transform="translate(0, {usableArea.bottom})" bind:this={xAxis} />
   <g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
   <g class="dots">
-    {#each commits as commit}
+    {#each commits as commit, index}
       <circle
         cx={xScale(commit.datetime)}
         cy={yScale(commit.hourFrac)}
-        r="5"
+        r={rScale(commit.totalLines)}
         fill="steelblue"
+        fill-opacity="0.6"
+        role="img"
+        aria-label="Commit by {commit.author} on {commit.datetime?.toLocaleDateString()}"
+        on:mouseenter={evt => dotInteraction(index, evt)}
+        on:mouseleave={evt => dotInteraction(index, evt)}
       />
     {/each}
   </g>
 </svg>
+
+<dl
+  class="info tooltip"
+  hidden={hoveredIndex === -1}
+  bind:this={commitTooltip}
+  style="top: {tooltipPosition.y}px; left: {tooltipPosition.x}px"
+>
+  <dt>Commit</dt>
+  <dd><a href={hoveredCommit.url} target="_blank">{hoveredCommit.id}</a></dd>
+
+  <dt>Date</dt>
+  <dd>{hoveredCommit.datetime?.toLocaleString("en", { dateStyle: "full" })}</dd>
+
+  <dt>Time</dt>
+  <dd>{hoveredCommit.datetime?.toLocaleString("en", { timeStyle: "short" })}</dd>
+
+  <dt>Author</dt>
+  <dd>{hoveredCommit.author}</dd>
+
+  <dt>Lines edited</dt>
+  <dd>{hoveredCommit.totalLines}</dd>
+</dl>
 
 <h2>Lines of Code by Language</h2>
 <BarHorizontal data={langData} />
@@ -123,5 +183,48 @@
 
   .gridlines {
     stroke-opacity: 0.2;
+  }
+
+  circle {
+    transition: 200ms;
+  }
+
+  circle:hover {
+    fill: darkgreen;
+  }
+
+  dl.info {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.25em 1em;
+    margin: 0;
+    transition-duration: 500ms;
+    transition-property: opacity, visibility;
+  }
+
+  dl.info dt {
+    font-size: 0.75em;
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  dl.info dd {
+    margin: 0;
+  }
+
+  dl.info[hidden]:not(:hover, :focus-within) {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .tooltip {
+    position: fixed;
+    background: oklch(100% 0% 0 / 80%);
+    color: black;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 16px oklch(0% 0% 0 / 20%);
+    border-radius: 0.5em;
+    padding: 0.75em 1em;
   }
 </style>
