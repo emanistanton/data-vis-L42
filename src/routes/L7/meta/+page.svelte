@@ -64,7 +64,7 @@
     .range([usableArea.bottom, usableArea.top]);
 
   $: {
-    d3.select(xAxis).call(d3.axisBottom(xScale));
+    d3.select(xAxis).call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b %d")));
     d3.select(yAxis).call(
       d3.axisLeft(yScale)
         .tickFormat(d => String(d % 24).padStart(2, "0") + ":00")

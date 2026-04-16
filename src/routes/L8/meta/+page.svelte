@@ -3,12 +3,14 @@
   import { base } from '$app/paths';
   import * as d3 from 'd3';
   import BarHorizontal from '$lib/BarHorizontal.svelte';
+  import LineChart from '$lib/LineChart.svelte';
   import { computePosition, autoPlacement, offset } from '@floating-ui/dom';
 
   let locData = [];
   let langData = [];
   let commits = [];
   let barData = [];
+  let linesByDate = [];
 
   const width = 1000;
   const height = 350;
@@ -22,23 +24,27 @@
   usableArea.width = usableArea.right - usableArea.left;
   usableArea.height = usableArea.bottom - usableArea.top;
 
+  let svg;
   let xAxis, yAxis, yAxisGridlines;
   let hoveredIndex = -1;
   let commitTooltip;
   let tooltipPosition = { x: 0, y: 0 };
   let clickedCommits = [];
+  let brushSelection = null;
 
   $: hoveredCommit = commits[hoveredIndex] ?? hoveredCommit ?? {};
 
   $: {
-    let filteredLines = clickedCommits.length > 0
-      ? clickedCommits.flatMap(c => c.lines)
-      : locData;
-    let langCounts = d3.rollup(filteredLines, v => v.length, d => d.type);
-    barData = langData.map(({ label }) => ({
-      label,
-      value: langCounts.get(label) ?? 0,
-    }));
+    let rolled = d3.rollups(locData, v => v.length, d => d3.timeDay.floor(d.datetime))
+      .map(([date, count]) => ({ date, count }));
+    if (rolled.length > 0) {
+      let [minDate, maxDate] = d3.extent(rolled, d => d.date);
+      let allDays = d3.timeDays(minDate, d3.timeDay.offset(maxDate, 1));
+      linesByDate = allDays.map(date => ({
+        date,
+        count: rolled.find(d => +d.date === +date)?.count ?? 0,
+      }));
+    }
   }
 
   $: rScale = d3.scaleSqrt()
@@ -64,7 +70,7 @@
     .range([usableArea.bottom, usableArea.top]);
 
   $: {
-    d3.select(xAxis).call(d3.axisBottom(xScale));
+    d3.select(xAxis).call(d3.axisBottom(xScale).tickFormat(d3.timeFormat("%b %d")));
     d3.select(yAxis).call(
       d3.axisLeft(yScale)
         .tickFormat(d => String(d % 24).padStart(2, "0") + ":00")
@@ -74,6 +80,44 @@
         .tickFormat("")
         .tickSize(-usableArea.width)
     );
+  }
+
+  $: {
+    d3.select(svg).call(
+      d3.brush()
+        .extent([[usableArea.left, usableArea.top], [usableArea.right, usableArea.bottom]])
+        .on("start brush end", brushed)
+    );
+    d3.select(svg).selectAll(".dots, .overlay ~ *").raise();
+  }
+
+  function brushed(evt) {
+    brushSelection = evt.selection;
+  }
+
+  function isCommitBrushed(commit) {
+    if (!brushSelection) return false;
+    let [[x0, y0], [x1, y1]] = brushSelection;
+    return (
+      xScale(commit.datetime) >= x0 &&
+      xScale(commit.datetime) <= x1 &&
+      yScale(commit.hourFrac) >= y0 &&
+      yScale(commit.hourFrac) <= y1
+    );
+  }
+
+  $: brushedCommits = brushSelection ? commits.filter(isCommitBrushed) : [];
+  $: selectedCommits = Array.from(new Set([...clickedCommits, ...brushedCommits]));
+
+  $: {
+    let filteredLines = selectedCommits.length > 0
+      ? selectedCommits.flatMap(c => c.lines)
+      : locData;
+    let langCounts = d3.rollup(filteredLines, v => v.length, d => d.type);
+    barData = langData.map(({ label }) => ({
+      label,
+      value: langCounts.get(label) ?? 0,
+    }));
   }
 
   async function dotInteraction(index, evt) {
@@ -135,7 +179,7 @@
 <p class="intro">Code statistics and analysis of this portfolio's codebase, generated from <code>loc.csv</code>.</p>
 
 <h2>Commits by Time of Day</h2>
-<svg viewBox="0 0 {width} {height}" style="overflow: visible;">
+<svg viewBox="0 0 {width} {height}" bind:this={svg}>
   <g class="gridlines" transform="translate({usableArea.left}, 0)" bind:this={yAxisGridlines} />
   <g transform="translate(0, {usableArea.bottom})" bind:this={xAxis} />
   <g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
@@ -151,7 +195,7 @@
         fill-opacity="0.6"
         role="img"
         aria-label="Commit by {commit.author} on {commit.datetime?.toLocaleDateString()}"
-        class:selected={clickedCommits.includes(commit)}
+        class:selected={selectedCommits.includes(commit)}
         on:mouseenter={evt => dotInteraction(index, evt)}
         on:mouseleave={evt => dotInteraction(index, evt)}
         on:click={evt => dotInteraction(index, evt)}
@@ -185,8 +229,12 @@
 <h2>Lines of Code by Language</h2>
 <BarHorizontal
   data={barData}
-  title={clickedCommits.length > 0 ? "Selected Commits Breakdown" : "Website Breakdown"}
+  title={selectedCommits.length > 0
+    ? `Lines of Code: ${selectedCommits.length} Selected Commits`
+    : "Website Breakdown"}
 />
+
+<LineChart data={linesByDate} />
 
 <style>
   .intro {
@@ -249,5 +297,17 @@
     box-shadow: 0 4px 16px oklch(0% 0% 0 / 20%);
     border-radius: 0.5em;
     padding: 0.75em 1em;
+  }
+
+  @keyframes marching-ants {
+    to { stroke-dashoffset: -8; }
+  }
+
+  svg :global(.selection) {
+    fill-opacity: 10%;
+    stroke: black;
+    stroke-opacity: 70%;
+    stroke-dasharray: 5 3;
+    animation: marching-ants 2s linear infinite;
   }
 </style>
