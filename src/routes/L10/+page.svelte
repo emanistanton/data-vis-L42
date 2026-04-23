@@ -38,8 +38,8 @@
       </p>
 
       <div class="quick-links">
-        <a href={`${base}/L9/projects`}>View Projects</a>
-        <a href={`${base}/L9/resume`}>View Resume</a>
+        <a href={`${base}/L10/projects`}>View Projects</a>
+        <a href={`${base}/L10/resume`}>View Resume</a>
       </div>
     </div>
 
@@ -84,7 +84,7 @@
   <section class="section-card">
     <div class="section-header">
       <h2>Latest Projects</h2>
-      <a href={`${base}/L9/projects`}>See all {projects.length}</a>
+      <a href={`${base}/L10/projects`}>See all {projects.length}</a>
     </div>
 
     <div class="projects highlights">

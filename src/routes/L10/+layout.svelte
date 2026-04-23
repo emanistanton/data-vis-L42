@@ -11,11 +11,11 @@
   $: if (browser) globalThis.localStorage.colorScheme = colorScheme;
 
   let pages = [
-    { url: "/L9", title: "Home" },
-    { url: "/L9/contact", title: "Contact" },
-    { url: "/L9/projects", title: "Projects" },
-    { url: "/L9/resume", title: "Resume" },
-    { url: "/L9/meta", title: "Meta" },
+    { url: "/L10", title: "Home" },
+    { url: "/L10/contact", title: "Contact" },
+    { url: "/L10/projects", title: "Projects" },
+    { url: "/L10/resume", title: "Resume" },
+    { url: "/L10/meta", title: "Meta" },
     { url: "https://github.com/emanistanton", title: "GitHub" },
   ];
 </script>
@@ -35,8 +35,8 @@
       <li>
         <a
           href={p.url.startsWith("http") ? p.url : base + p.url}
-          class:current={p.url === "/L9"
-            ? $page.url.pathname === base + "/L9" || $page.url.pathname === base + "/L9/"
+          class:current={p.url === "/L10"
+            ? $page.url.pathname === base + "/L10" || $page.url.pathname === base + "/L10/"
             : $page.url.pathname.startsWith(base + p.url)}
           target={p.url.startsWith("http") ? "_blank" : null}
         >

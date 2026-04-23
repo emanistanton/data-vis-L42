@@ -306,12 +306,12 @@
 
   .data-table th,
   .data-table td {
-    border: 1px solid #ccc;
+    border: 1px solid color-mix(in oklch, currentColor 25%, transparent);
     padding: 0.5em;
     text-align: left;
   }
 
   .data-table th {
-    background-color: #f0f0f0;
+    background-color: color-mix(in oklch, currentColor 8%, canvas);
   }
 </style>
