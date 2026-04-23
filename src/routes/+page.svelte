@@ -13,5 +13,6 @@
     <li><a href="{base}/L7">Lab 7</a></li>
     <li><a href="{base}/L8">Lab 8</a></li>
     <li><a href="{base}/L9">Lab 9</a></li>
+    <li><a href="{base}/L10">Lab 10</a></li>
   </ul>
 </main>
